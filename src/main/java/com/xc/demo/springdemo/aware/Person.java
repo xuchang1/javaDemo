@@ -5,9 +5,11 @@ import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EmbeddedValueResolverAware;
+import org.springframework.context.ResourceLoaderAware;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.StringValueResolver;
 
-public class Person implements ApplicationContextAware, BeanNameAware, EmbeddedValueResolverAware {
+public class Person implements ApplicationContextAware, BeanNameAware, EmbeddedValueResolverAware, ResourceLoaderAware {
 
     private String name;
 
@@ -71,4 +73,9 @@ public class Person implements ApplicationContextAware, BeanNameAware, EmbeddedV
     public void setEmbeddedValueResolver(StringValueResolver resolver) {
         System.out.println("=============" + resolver.resolveStringValue("你好 #{20-10}，${os.name}"));
     }
+
+	@Override
+	public void setResourceLoader(ResourceLoader resourceLoader) {
+		System.out.println("=============" + resourceLoader);
+	}
 }

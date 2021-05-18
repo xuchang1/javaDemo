@@ -14,7 +14,7 @@ public class demo8 {
     public static int myAtoi(String s) {
         Set<String> set = new HashSet<>(Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9"));
 
-        int result = 0;
+        long result = 0;
         boolean flag = true;
         int startIndex = -1;
         String str = "";
@@ -31,16 +31,17 @@ public class demo8 {
             } else if (startIndex == i && "+".equals(str)) {
                 flag = true;
             } else if (set.contains(str)) {
-                if (result > Integer.MAX_VALUE/10 && flag) {
-                    return Integer.MIN_VALUE;
-                } else if (result > Integer.MAX_VALUE/10 && !flag){
-                    return Integer.MIN_VALUE;
-                }
                 result = 10*result + Integer.parseInt(str);
+                if (flag && result > Integer.MAX_VALUE) {
+                	return Integer.MAX_VALUE;
+                } else if (!flag && -result < Integer.MIN_VALUE) {
+                	return Integer.MIN_VALUE;
+                }
             } else {
                 break;
             }
         }
-        return flag?result:-result;
+
+        return (int)(flag?result:-result);
     }
 }
